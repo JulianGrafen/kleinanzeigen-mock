@@ -1,4 +1,5 @@
 export class ReceiveListingDTO{
+    title: string;
     description:string;
     price: string;
     category: string;
