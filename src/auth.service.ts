@@ -18,7 +18,7 @@ export class AuthService {
 
   async signUp(signUpDto: SignUpDto): Promise<{ token: string }> {
     const { name, email, password } = signUpDto;
-
+    console.log(name,email,password)
     const existingUser = await this.usersRepository.findOne({ where: { email } });
 
     if (existingUser) {
