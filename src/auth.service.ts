@@ -22,6 +22,8 @@ export class AuthService {
     const existingUser = await this.usersRepository.findOne({ where: { email } });
 
     if (existingUser) {
+      console.log("User " + email + " already exists")
+
       throw new ConflictException('Email already exists');
     }
 

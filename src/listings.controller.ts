@@ -8,15 +8,16 @@ export class ListingsController {
 
 
 @Post('receiveListing')
-receiveListing(@Body() receiveListingDTO:ReceiveListingDTO){
-  this.listingsService.create(receiveListingDTO);
- console.log(receiveListingDTO);
+  async receiveListing(@Body() receiveListingDTO:ReceiveListingDTO){
+  const createdListingId = await this.listingsService.create(receiveListingDTO);
+  return { _id: createdListingId };
 }
 
 @Get('getListings')
 async findAll() {
   return this.listingsService.findAll();
 }
+
 
 
 }
