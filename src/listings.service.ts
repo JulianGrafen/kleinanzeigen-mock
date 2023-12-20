@@ -15,10 +15,22 @@ export class ListingsService {
     const receiveListing = new this.listingModel(receiveListingDTO);
     const savedArticle = await receiveListing.save();
     console.log(savedArticle._id)
+    console.log(receiveListingDTO);
     return savedArticle._id.toString();
   }
 
   async findAll(): Promise<Listing[]> {
     return this.listingModel.find().exec();
+  }
+
+  async findById(objectId){
+    try {
+      const listings = await this.listingModel.find({ _id: { $in: objectId } }).exec();
+      console.log(listings);
+      return listings;
+    } catch (error) {
+      console.error('Error finding listings by object IDs:', error);
+      throw error;
+    }
   }
 }
