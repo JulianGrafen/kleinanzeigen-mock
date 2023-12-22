@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { ListingsService } from './listings.service';
 import { ReceiveListingDTO } from './DTO/ReceiveListing.dto';
 import { object } from 'joi';
+import { UpdatedArticleDto } from './DTO/UpdatedArticel.dto';
 
 @Controller()
 export class ListingsController {
@@ -23,6 +24,11 @@ async findAll() {
 async findById(@Body() objectId){
   const listings = this.listingsService.findById(objectId); 
   return listings;
+}
+
+@Patch('update')
+async update(@Body() updatedArticleDto: UpdatedArticleDto) {
+  return this.listingsService.update(updatedArticleDto);
 }
 
 

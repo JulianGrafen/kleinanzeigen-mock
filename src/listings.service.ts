@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Listing } from './schemas/listing.schema';
 import { ReceiveListingDTO } from './dto/ReceiveListing.dto';
+import { UpdatedArticleDto } from './DTO/UpdatedArticel.dto';
 
 
 @Injectable()
@@ -30,6 +31,27 @@ export class ListingsService {
       return listings;
     } catch (error) {
       console.error('Error finding listings by object IDs:', error);
+      throw error;
+    }
+  }
+
+  async update(updatedArticleDto: UpdatedArticleDto): Promise<any> {
+    try {
+      console.log("update called")
+      const objectId = updatedArticleDto.id; 
+      const updatedListing = await this.listingModel.findByIdAndUpdate(
+        objectId,
+        { $set: updatedArticleDto },
+        { new: true } 
+      );
+
+      if (!updatedListing) {
+        throw new Error('Listing not found');
+      }
+
+      return updatedListing;
+    } catch (error) {
+      console.error('Error updating listing:', error);
       throw error;
     }
   }
